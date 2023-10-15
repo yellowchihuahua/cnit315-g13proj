@@ -1,6 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void developerCredits() {
+  // Print the information
+  printf("Credits:\n");
+  printf("Developed Oct. 2023\n");
+  printf("Joyanna Hammer, Ryan Cosillo, Hunter King, Chia-Hua Lin\n");
+}
+
 int ReceiveIntInput(char *prompt, int minInclusive){
     int value = -1;
     do {
@@ -43,6 +50,7 @@ int main()
 
             case 3:
                 //credits
+                developerCredits();
                 break;
 
             case 4:
