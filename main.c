@@ -1,20 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void developerCredits() {
-  // Print the information
-  printf("Credits:\n");
-  printf("Developed Oct. 2023\n");
-  printf("Joyanna Hammer, Ryan Cosillo, Hunter King, Chia-Hua Lin\n");
-}
-
-int receiveIntInput(char *prompt, int minInclusive){
+int ReceiveIntInput(char *prompt, int minInclusive){
     int value = -1;
     do {
-        char input[5];
+        char *input;//string to validate if its int input
         printf("%s", prompt);
         scanf("%s", &input);
-        value = atoi(input);
+        value = atoi(input); //converting to int from string will get rid of most errors when input char when supposed to be int
 
         if (value < minInclusive) {
             printf("That is an invalid entry, please enter a valid integer over %i.\n", minInclusive);
@@ -31,13 +24,13 @@ int main()
 
     do {
         char functionNumber = 0; //ref https://www.programiz.com/c-programming/examples/calculator-switch-case
-        printf("\n\n===============================================================================");
-        printf("\nHere are your options: ");
-        printf("\n(1) Enter a URL to shorten");
-        printf("\n(2) Show history of URLs you have shortened using this program");
-        printf("\n(3) Credits");
-        printf("\n(4) Exit the program");
-        functionNumber = receiveIntInput("\nEnter the number of the function you would like to use (1-4): ", 1);
+        printf("\n\n===============================================================================\n");
+        printf("Here are your options: \n");
+        printf("(1) Enter a URL to shorten\n");
+        printf("(2) Show history of URLs you have shortened while using this program\n");
+        printf("(3) Credits\n");
+        printf("(4) Exit the program\n\n");
+        functionNumber = ReceiveIntInput("Enter the number of the function you would like to use (1-4): ", 1);
 
         switch(functionNumber) {
             case 1:
@@ -50,7 +43,6 @@ int main()
 
             case 3:
                 //credits
-                developerCredits();
                 break;
 
             case 4:
