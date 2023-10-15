@@ -34,7 +34,7 @@ int main()
 
         switch(functionNumber) {
             case 1:
-                //shorten URL
+                //shorten URL (Maybe allow them to create custom URL not just a random shortened one)
                 break;
                 
             case 2:
