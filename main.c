@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void developerCredits() {
+void PrintDeveloperCredits() {
   // Print the information
   printf("Credits:\n");
   printf("Developed Oct. 2023\n");
@@ -50,7 +50,7 @@ int main()
 
             case 3:
                 //credits
-                developerCredits();
+                PrintDeveloperCredits();
                 break;
 
             case 4:
