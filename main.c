@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "linkedlist.h"
 #include <curl/curl.h>
 
@@ -28,6 +29,18 @@ void PrintDeveloperCredits() {
 void DisplayMenu(){
     int cont = 1;
     char input[4];
+    LinkedList* historyList = NULL;
+    historyList = CreateList();
+
+    CURL *curl;
+    CURLcode result;
+    char *data;
+    char *shortenedUrl = malloc(1);
+    if (shortenedUrl == NULL) {
+        printf("DisplayMenu(); -- Memory allocation failed.\n");
+        return;
+    }
+    *shortenedUrl = '\0';
 
     do {
         char functionNumber = 0; //ref https://www.programiz.com/c-programming/examples/calculator-switch-case
