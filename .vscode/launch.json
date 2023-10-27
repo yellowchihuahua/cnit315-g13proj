@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/CHL/Documents/GitHub/cnit315-g13proj",
-      "program": "c:/Users/CHL/Documents/GitHub/cnit315-g13proj/build/Debug/outDebug",
+      "cwd": "c:/Users/linc7/Documents/GitHub/cnit315-g13proj",
+      "program": "c:/Users/linc7/Documents/GitHub/cnit315-g13proj/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
