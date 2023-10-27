@@ -57,8 +57,9 @@ void DisplayMenu(){
         switch(functionNumber) {
             case 1:
                 //shorten URL (Maybe allow them to create custom URL not just a random shortened one)
-                break;
-                
+               printf("Ender a URL to shorten: "); 
+
+               break;
             case 2:
                 //show history
                 break;
