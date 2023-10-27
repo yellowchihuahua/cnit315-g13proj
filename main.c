@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "linkedlist.h"
 
 void PrintDeveloperCredits() {
   // Print the information
@@ -8,36 +9,21 @@ void PrintDeveloperCredits() {
   printf("Joyanna Hammer, Ryan Cosillo, Hunter King, Chia-Hua Lin\n");
 }
 
-int ReceiveIntInput(char *prompt, int minInclusive){
-    int value = -1;
-    do {
-        char *input;//string to validate if its int input
-        printf("%s", prompt);
-        scanf("%s", &input);
-        value = atoi(input); //converting to int from string will get rid of most errors when input char when supposed to be int
-
-        if (value < minInclusive) {
-            printf("That is an invalid entry, please enter a valid integer over %i.\n", minInclusive);
-            value = -1;
-        }
-    } while (value == -1);
-
-    return value;
-}
-
-int main()
-{
-	int cont = 1;
+void DisplayMenu(){
+    int cont = 1;
+    char input[4];
 
     do {
         char functionNumber = 0; //ref https://www.programiz.com/c-programming/examples/calculator-switch-case
-        printf("\n\n===============================================================================\n");
+        printf("\n===============================================================================\n");
         printf("Here are your options: \n");
         printf("(1) Enter a URL to shorten\n");
         printf("(2) Show history of URLs you have shortened while using this program\n");
         printf("(3) Credits\n");
-        printf("(4) Exit the program\n\n");
-        functionNumber = ReceiveIntInput("Enter the number of the function you would like to use (1-4): ", 1);
+        printf("(4) Exit the program\n");
+        printf("\nEnter the number of the function you would like to use (1-4): ");
+        scanf("%s", input); //receiving as string then converting to int validates value
+		functionNumber = atoi(input);
 
         switch(functionNumber) {
             case 1:
@@ -63,6 +49,10 @@ int main()
         }
 
     } while (cont == 1);
+}
 
+int main()
+{
+	DisplayMenu();
 	return 0;
 }
