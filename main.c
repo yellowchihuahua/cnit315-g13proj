@@ -1,6 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "linkedlist.h"
+#include <curl/curl.h>
+
+size_t WriteCallback(void *contents, size_t size, size_t nmemb, char**userp){
+    size_t totalSize = size*nmemb;
+    size_t oldLength = strlen(*userp);
+    char *temp = realloc(*userp, oldLength + totalSize + 1);
+    if (temp == NULL) {
+        fprintf(stderr, "realloc() failed\n");
+        return 0;
+    }
+    *userp = temp;
+    memcpy(*userp + oldLength, contents, totalSize);
+    (*userp)[oldLength + totalSize] = '\0';
+    return totalSize;
+}
 
 void PrintDeveloperCredits() {
   // Print the information
