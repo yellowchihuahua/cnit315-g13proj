@@ -67,9 +67,9 @@ void DisplayMenu(){
                 printf("Ender a URL to shorten: "); 
 
                 char urlToShorten[1024];
-                scanf("s", urlToShorten);
+                scanf("%s", urlToShorten);
 
-                urlToShorten[strcspn(urlToShorten, "\n") = 0]; //removes newline
+                urlToShorten[strcspn(urlToShorten, "\n")] = 0; //removes newline
 
                 if (curl) {
                     char *encodedUrl = curl_easy_eascpe(curl, urlToShorten, 0);
