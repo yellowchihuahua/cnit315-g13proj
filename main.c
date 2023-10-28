@@ -44,10 +44,11 @@ void DisplayMenu(){
 
     char *shortenedUrl = malloc(1);
     if (shortenedUrl == NULL) {
-        fprintf(stderr, "Curl initialization failed.\n");
+        fprintf(stderr, "Failed to allocate memory for shortenedUrl.\n");
         return;
     }
     *shortenedUrl = '\0';
+
 
     do {
         char functionNumber = 0; //ref https://www.programiz.com/c-programming/examples/calculator-switch-case
@@ -93,7 +94,7 @@ void DisplayMenu(){
 
                     printf("Shortened URL: %s\n", shortenedUrl);
                     //creates node and adds to linked list
-                    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+                    Node* newNode = NULL;
                     newNode = CreateNode(nodeKey, urlToShorten, shortenedUrl);
                     InsertFront(historyList, newNode);
                     nodeKey++;

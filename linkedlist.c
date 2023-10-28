@@ -7,10 +7,10 @@
 
 // *needs to be changed if struct Node changes (data received and processed)
 struct Node* CreateNode(int key, char *originalUrl, char *shortenedUrl){
-	struct Node *newNode = (struct Node*)malloc(sizeof(struct Node));
+	Node *newNode = malloc(sizeof(struct Node));
 	if (newNode == NULL) {
 		printf("CreateNode(char *firstName, char *lastName, char *major, float GPA); -- Failed memory allocation.\n");
-		exit(1);
+		return NULL;
 	}
 
 	newNode->key = key;
@@ -24,7 +24,7 @@ struct Node* CreateNode(int key, char *originalUrl, char *shortenedUrl){
 
 //ref https://github.com/skorks/c-linked-list/blob/master/linkedlist.c
 struct LinkedList* CreateList() {
-	LinkedList* llist = (struct LinkedList*)malloc(sizeof(struct LinkedList));
+	LinkedList* llist = malloc(sizeof(struct LinkedList));
 	if (llist == NULL) {
 		printf("CreateList(); -- Failed memory allocation.\n");
 		return NULL;
