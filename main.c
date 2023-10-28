@@ -72,7 +72,7 @@ void DisplayMenu(){
                 urlToShorten[strcspn(urlToShorten, "\n")] = 0; //removes newline
 
                 if (curl) {
-                    char *encodedUrl = curl_easy_eascpe(curl, urlToShorten, 0);
+                    char *encodedUrl = curl_easy_escape(curl, urlToShorten, 0);
                     if (encodedUrl == NULL) {
                         fprintf(stderr, "URL encoding failed\n");
                         curl_global_cleanup();
@@ -93,7 +93,8 @@ void DisplayMenu(){
 
                     printf("Shortened URL: %s\n", shortenedUrl);
                     //creates node and adds to linked list
-                    Node* newNode = CreateNode(nodeKey, urlToShorten, shortenedUrl);
+                    Node* newNode = NULL;
+                    newNode = CreateNode(nodeKey, urlToShorten, shortenedUrl);
                     InsertFront(historyList, newNode);
                     nodeKey++;
                     break;
@@ -120,6 +121,7 @@ void DisplayMenu(){
         }
 
     } while (cont == 1);
+    FreeList(historyList);
 }
 
 int main()
