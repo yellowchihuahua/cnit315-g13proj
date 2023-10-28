@@ -24,7 +24,7 @@ struct Node* CreateNode(int key, char *originalUrl, char *shortenedUrl){
 
 //ref https://github.com/skorks/c-linked-list/blob/master/linkedlist.c
 struct LinkedList* CreateList() {
-	LinkedList* llist = malloc(sizeof(struct LinkedList));
+	LinkedList* llist = (struct LinkedList*)malloc(sizeof(struct LinkedList));
 	if (llist == NULL) {
 		printf("CreateList(); -- Failed memory allocation.\n");
 		return NULL;

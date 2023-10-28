@@ -93,7 +93,7 @@ void DisplayMenu(){
 
                     printf("Shortened URL: %s\n", shortenedUrl);
                     //creates node and adds to linked list
-                    Node* newNode = NULL;
+                    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
                     newNode = CreateNode(nodeKey, urlToShorten, shortenedUrl);
                     InsertFront(historyList, newNode);
                     nodeKey++;
