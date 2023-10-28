@@ -31,13 +31,22 @@ void DisplayMenu(){
     char input[4];
     LinkedList* historyList = NULL;
     historyList = CreateList();
+    int nodeKey = 1;
 
     CURL *curl;
     CURLcode result;
+    curl_global_init(CURL_GLOBAL_DEFAULT);
+    curl = curl_easy_init();
+    if (curl == NULL) {
+        fprintf(stderr, "Curl initialization failed.\n");
+        return;
+    }
+
+
     char *data;
     char *shortenedUrl = malloc(1);
     if (shortenedUrl == NULL) {
-        printf("DisplayMenu(); -- Memory allocation failed.\n");
+        fprintf(stderr, "Curl initialization failed.\n");
         return;
     }
     *shortenedUrl = '\0';
@@ -57,11 +66,45 @@ void DisplayMenu(){
         switch(functionNumber) {
             case 1:
                 //shorten URL (Maybe allow them to create custom URL not just a random shortened one)
-               printf("Ender a URL to shorten: "); 
+                printf("Ender a URL to shorten: "); 
 
-               break;
+                urlToShorten = char[1024];
+                scanf("s", urlToShorten);
+
+                urlToShorten[strcspn(urlToShorten, "\n") = 0]; //removes newline
+
+                if (curl) {
+                    char *encodedUrl = curl_easy_eascpe(curl, urlToShorten, 0);
+                    if (encodedUrl == NULL) {
+                        fprintf(stderr, "URL encoding failed\n");
+                        curl_global_cleanup();
+                        continue;
+                    }
+                    char apiUrl[1024];
+                    snprintf(apiUrl, sizeof(apiUrl), "http://tinyurl.com/api-create.php?url=%s", encodedUrl); //copy url to apiurl
+
+                    curl_easy_setopt(curl, CURLOPT_URL, apiUrl);
+                    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
+                    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &shortenedUrl);
+                    
+                    result = curl_easy_perform(curl);
+                    if (res != CURLE_OK){
+                        fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(result));
+                        break;
+                    }
+
+                    printf("Shortened URL: %s\n", shortenedUrl);
+                    //creates node and adds to linked list
+                    Node* newNode = CreateNode(nodeKey, urlToShorten, shortenedUrl);
+                    InsertFront(historyList, newNode);
+                    nodeKey++;
+                    break;
+                }
+                fprintf(stderr, "curl_easy_init() failed\n");
+                break;
             case 2:
-                //show history
+                //print list
+                PrintList(historyList);
                 break;
 
             case 3:
