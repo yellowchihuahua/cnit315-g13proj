@@ -4,22 +4,24 @@
 #include <curl/curl.h>
 
 struct Node {
-    char *originalUrl;
-    char *shortenedUrl;
+    char originalUrl[1024];
+    char shortenedUrl[1024];
     struct Node *next;
 };
 
 
 struct LinkedList{
-	Node* head;
+	struct Node* head;
 };
 
 struct Node* CreateNode(char *originalUrl, char *shortenedUrl){
-	Node *newNode = (struct Node*)malloc(sizeof(struct Node));
+	struct Node *newNode = (struct Node*)malloc(sizeof(struct Node));
+	printf("allocation attempted");
 	if (newNode == NULL) {
 		printf("CreateNode(char *originalUrl, char *shortenedUrl); -- Failed memory allocation.\n");
 		return NULL;
 	}
+	printf("allocation succeeded");
 
 	strcpy(newNode->originalUrl, originalUrl);
 	strcpy(newNode->shortenedUrl, shortenedUrl);
@@ -29,7 +31,7 @@ struct Node* CreateNode(char *originalUrl, char *shortenedUrl){
 }
 
 struct LinkedList* CreateList() {
-	LinkedList* llist = malloc(sizeof(struct LinkedList));
+	struct LinkedList* llist = malloc(sizeof(struct LinkedList));
 	if (llist == NULL) {
 		printf("CreateList(); -- Failed memory allocation.\n");
 		return NULL;
@@ -60,17 +62,17 @@ int ToCsv(struct Node* node, char *string) {
 		return 0;
 	}
 	
-	snprintf(string, 256, "%s, %s\n", node->originalUrl, node->shortenedUrl);
+	snprintf(string, 2100, "%s, %s\n", node->originalUrl, node->shortenedUrl);
 	return 1;
 }
 
 int ToString(struct Node* node, char *string) {
-	if(node == NULL){
-		printf("ToCsv(struct Node* node, char *string); -- Node is null, nothing to convert.\n");
-		return 0;
+    if(node == NULL){
+        printf("ToCsv(struct Node* node, char *string); -- Node is null, nothing to convert.\n");
+        return 0;
 	}
-	snprintf(string, 256, "Data: %s, %s\n", node->originalUrl, node->shortenedUrl);
-	return 1;
+    snprintf(string, 2100, "Data: %s, %s\n", node->originalUrl, node->shortenedUrl);
+    return 1;
 }
 
 void PrintNode(struct Node* node){
@@ -159,7 +161,7 @@ void PrintDeveloperCredits() {
 void DisplayMenu(){
     int cont = 1;
     char input[4];
-    LinkedList* historyList = NULL;
+    struct LinkedList* historyList = NULL;
     historyList = CreateList();
     int nodeKey = 1;
 
@@ -178,6 +180,7 @@ void DisplayMenu(){
         return;
     }
     *shortenedUrl = '\0';
+    
 
 
     do {
@@ -201,8 +204,6 @@ void DisplayMenu(){
                 char urlToShorten[1024];
                 scanf("%s", urlToShorten);
 
-                urlToShorten[strcspn(urlToShorten, "\n")] = 0; //removes newline
-
                 if (curl) {
                     char *encodedUrl = curl_easy_escape(curl, urlToShorten, 0);
                     if (encodedUrl == NULL) {
@@ -225,8 +226,8 @@ void DisplayMenu(){
 
                     printf("Shortened URL: %s\n", shortenedUrl);
                     //creates node and adds to linked list
-                    Node* newNode = NULL;
-                    newNode = CreateNode(nodeKey, urlToShorten, shortenedUrl);
+                    struct Node* newNode = NULL;
+                    newNode = CreateNode(urlToShorten, shortenedUrl);
                     InsertFront(historyList, newNode);
                     nodeKey++;
                     break;
@@ -236,7 +237,7 @@ void DisplayMenu(){
             case 2:
                 printf("Here is your URL shortening history: --------------------------------------------\n");
                 PrintList(historyList);
-                printf("End of History ------------------------------------------------------------------\n");
+                printf("END OF HISTORY ------------------------------------------------------------------\n");
                 break;
 
             case 3:
