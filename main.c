@@ -42,8 +42,6 @@ void DisplayMenu(){
         return;
     }
 
-
-    char *data;
     char *shortenedUrl = malloc(1);
     if (shortenedUrl == NULL) {
         fprintf(stderr, "Curl initialization failed.\n");
@@ -68,7 +66,7 @@ void DisplayMenu(){
                 //shorten URL (Maybe allow them to create custom URL not just a random shortened one)
                 printf("Ender a URL to shorten: "); 
 
-                urlToShorten = char[1024];
+                char urlToShorten[1024];
                 scanf("s", urlToShorten);
 
                 urlToShorten[strcspn(urlToShorten, "\n") = 0]; //removes newline
@@ -88,7 +86,7 @@ void DisplayMenu(){
                     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &shortenedUrl);
                     
                     result = curl_easy_perform(curl);
-                    if (res != CURLE_OK){
+                    if (result != CURLE_OK){
                         fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(result));
                         break;
                     }
